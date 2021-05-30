@@ -1,4 +1,3 @@
-
 // Copyright 2019-2021 Manta Network.
 // This file is part of manta-api.
 //
@@ -25,7 +24,7 @@ use manta_error::MantaError;
 use manta_types::*;
 
 /// Given the inputs, generate the payload for the mint_asset extrinsic.
-pub fn generate_mint_payload(asset: &MantaAsset) -> Result<[u8; MINT_PAYLOAD_SIZE], MantaError> {
+pub fn generate_mint_payload(asset: &MantaAsset) -> Result<MintPayload, MantaError> {
 	let data = generate_mint_struct(asset);
 	let mut res = [0u8; MINT_PAYLOAD_SIZE];
 	data.serialize(res.as_mut())?;
@@ -68,7 +67,7 @@ pub fn generate_private_transfer_payload<R: RngCore + CryptoRng>(
 	receiver_1: MantaAssetProcessedReceiver,
 	receiver_2: MantaAssetProcessedReceiver,
 	rng: &mut R,
-) -> Result<[u8; PRIVATE_TRANSFER_PAYLOAD_SIZE], MantaError> {
+) -> Result<PrivateTransferPayload, MantaError> {
 	let data = generate_private_transfer_struct(
 		commit_param,
 		hash_param,
@@ -183,7 +182,7 @@ pub fn generate_reclaim_payload<R: RngCore + CryptoRng>(
 	receiver: MantaAssetProcessedReceiver,
 	reclaim_value: u64,
 	rng: &mut R,
-) -> Result<[u8; RECLAIM_PAYLOAD_SIZE], MantaError> {
+) -> Result<ReclaimPayload, MantaError> {
 	let data = generate_reclaim_struct(
 		commit_param,
 		hash_param,
@@ -198,7 +197,6 @@ pub fn generate_reclaim_payload<R: RngCore + CryptoRng>(
 	data.serialize(res.as_mut())?;
 	Ok(res)
 }
-
 
 /// Given the inputs, generate the payload for the reclaim extrinsic.
 /// Inputs:

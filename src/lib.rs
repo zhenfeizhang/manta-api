@@ -14,10 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with manta-api.  If not, see <http://www.gnu.org/licenses/>.
 
-#![no_std]
-
+// Ensure we're `no_std` when compiling for Wasm.
+#![cfg_attr(not(feature = "std"), no_std)]
 
 mod payload;
 mod zkp;
 
-pub use zkp::{TransferCircuit,ReclaimCircuit};
+pub use payload::{
+	generate_mint_payload, generate_private_transfer_payload, generate_reclaim_payload,
+};
+pub use zkp::{ReclaimCircuit, TransferCircuit, RECLAIM_PK, TRANSFER_PK};
+
+#[cfg(feature = "std")]
+pub use zkp::write_zkp_keys;

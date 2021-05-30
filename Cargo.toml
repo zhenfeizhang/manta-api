@@ -29,3 +29,13 @@ ark-groth16 = { version = "0.2.0", default-features = false, features = [ "r1cs"
 ark-r1cs-std = { version = "0.2.0", default-features = false }
 ark-relations = { version = "0.2.0", default-features = false }
 ark-serialize = { version = "0.2.0", default-features = false, features = [ "derive" ] }
+
+# Additional cryptography dependencies
+rand_chacha = { version = "0.2.0", default-features = false }
+hkdf = { version = "0.11", default-features = false }
+sha2 = { version = "0.9.3", default-features = false }
+
+
+[features]
+default = []
+std = []
