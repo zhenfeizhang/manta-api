@@ -1,0 +1,31 @@
+[package]
+name = "manta-api"
+version = "0.1.0"
+authors = ["Manta Network <contact@manta.network>"]
+edition = "2018"
+license = "Apache-2.0"
+repository = "https://github.com/Manta-Network/manta-types"
+description = "Type definitions for Manta ecosystem"
+readme = "README.md"
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
+
+[dependencies]
+
+# Manta Dependencies
+manta-crypto = { branch = "error-wrapper", git = "https://github.com/Manta-Network/manta-crypto", default-features = false }
+manta-asset = { branch = "error-wrapper", git = "https://github.com/Manta-Network/manta-asset", default-features = false }
+manta-error = { git = "https://github.com/Manta-Network/manta-error", default-features = false }
+manta-types = { git = "https://github.com/Manta-Network/manta-types", default-features = false }
+
+# Arkworks dependencies
+ark-ed-on-bls12-381 = { version = "0.2.0", default-features = false, features = [ "r1cs" ] }
+ark-bls12-381 = { version = "0.2.0", default-features = false, features = [ "curve" ] }
+ark-crypto-primitives = { version = "0.2.0", default-features = false, features = [ "r1cs" ] }
+ark-ff = { version = "0.2.0", default-features = false }
+ark-std = { version = "0.2.0", default-features = false }
+ark-groth16 = { version = "0.2.0", default-features = false, features = [ "r1cs" ] }
+ark-r1cs-std = { version = "0.2.0", default-features = false }
+ark-relations = { version = "0.2.0", default-features = false }
+ark-serialize = { version = "0.2.0", default-features = false, features = [ "derive" ] }
