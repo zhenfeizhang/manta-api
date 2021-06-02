@@ -14,10 +14,10 @@ targets = ["x86_64-unknown-linux-gnu"]
 [dependencies]
 
 # Manta Dependencies
+manta-asset = { branch = "manta", git = "https://github.com/Manta-Network/manta-types", default-features = false }
 manta-crypto = { branch = "manta", git = "https://github.com/Manta-Network/manta-crypto", default-features = false }
-manta-asset = { branch = "manta", git = "https://github.com/Manta-Network/manta-asset", default-features = false }
+manta-data = { branch = "manta", git = "https://github.com/Manta-Network/manta-types", default-features = false }
 manta-error = { branch = "manta", git = "https://github.com/Manta-Network/manta-error", default-features = false }
-manta-types = { branch = "manta", git = "https://github.com/Manta-Network/manta-types", default-features = false }
 
 # Arkworks dependencies
 ark-ed-on-bls12-381 = { version = "0.2.0", default-features = false, features = [ "r1cs" ] }

@@ -104,7 +104,7 @@ pub(crate) fn sender_token_well_formed_circuit_helper(
 		CommitmentSchemeVar::commit(&parameters_var, &input_var, &randomness_var)?;
 
 	// the other commitment
-	let cm = CommitmentOutput::deserialize(asset.commitment.as_ref()).unwrap();
+	let cm = CommitmentOutput::deserialize(asset.utxo.as_ref()).unwrap();
 	// the commitment is from the sender, so it is hidden
 	let commitment_var2 = MantaCoinCommitmentOutputVar::new_witness(
 		ark_relations::ns!(cs, "gadget_commitment"),
@@ -154,7 +154,7 @@ pub(crate) fn receiver_token_well_formed_circuit_helper(
 		CommitmentSchemeVar::commit(&parameters_var, &input_var, &randomness_var)?;
 
 	// the other commitment
-	let cm = CommitmentOutput::deserialize(receiver.commitment.as_ref()).unwrap();
+	let cm = CommitmentOutput::deserialize(receiver.utxo.as_ref()).unwrap();
 	// the commitment is from the receiver, it is public
 	let commitment_var2 = MantaCoinCommitmentOutputVar::new_input(
 		ark_relations::ns!(cs, "gadget_commitment"),

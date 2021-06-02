@@ -21,7 +21,7 @@ use ark_std::rand::{CryptoRng, RngCore};
 use manta_asset::*;
 use manta_crypto::*;
 use manta_error::MantaError;
-use manta_types::*;
+use manta_data::*;
 
 /// Given the inputs, generate the payload for the mint_asset extrinsic.
 pub fn generate_mint_payload(asset: &MantaAsset) -> Result<MintPayload, MantaError> {
@@ -31,13 +31,13 @@ pub fn generate_mint_payload(asset: &MantaAsset) -> Result<MintPayload, MantaErr
 	Ok(res)
 }
 
-/// Given the inputs, generate the stuct that can be passed to
+/// Given the inputs, generate the struct that can be passed to
 /// the mint_asset extrinsic once serialized
 fn generate_mint_struct(asset: &MantaAsset) -> MintData {
 	MintData {
 		asset_id: asset.asset_id,
 		amount: asset.priv_info.value,
-		cm: asset.commitment,
+		cm: asset.utxo,
 		k: asset.pub_info.k,
 		s: asset.pub_info.s,
 	}
@@ -145,13 +145,13 @@ fn generate_private_transfer_struct<R: RngCore + CryptoRng>(
 		},
 		receiver_1: ReceiverData {
 			k: receiver_1.prepared_data.k,
-			cm: receiver_1.commitment,
+			cm: receiver_1.utxo,
 			sender_pk: receiver_1.sender_pk,
 			cipher: receiver_1.ciphertext,
 		},
 		receiver_2: ReceiverData {
 			k: receiver_2.prepared_data.k,
-			cm: receiver_2.commitment,
+			cm: receiver_2.utxo,
 			sender_pk: receiver_2.sender_pk,
 			cipher: receiver_2.ciphertext,
 		},
@@ -274,7 +274,7 @@ fn generate_reclaim_struct<R: RngCore + CryptoRng>(
 		},
 		receiver: ReceiverData {
 			k: receiver.prepared_data.k,
-			cm: receiver.commitment,
+			cm: receiver.utxo,
 			sender_pk: receiver.sender_pk,
 			cipher: receiver.ciphertext,
 		},

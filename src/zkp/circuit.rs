@@ -20,7 +20,7 @@ use ark_r1cs_std::{alloc::AllocVar, prelude::*};
 use ark_relations::r1cs::{ConstraintSynthesizer, ConstraintSystemRef, SynthesisError};
 use manta_asset::*;
 use manta_crypto::*;
-use manta_types::*;
+use manta_data::*;
 
 // =============================
 /// ZK circuit for the __transfer__ statements.
@@ -150,7 +150,7 @@ impl ConstraintSynthesizer<Fq> for TransferCircuit {
 		)?;
 
 		merkle_membership_circuit_proof(
-			&self.sender_1.asset.commitment,
+			&self.sender_1.asset.utxo,
 			&self.sender_1.membership,
 			param_var.clone(),
 			self.sender_1.root,
@@ -158,7 +158,7 @@ impl ConstraintSynthesizer<Fq> for TransferCircuit {
 		)?;
 
 		merkle_membership_circuit_proof(
-			&self.sender_2.asset.commitment,
+			&self.sender_2.asset.utxo,
 			&self.sender_2.membership,
 			param_var,
 			self.sender_2.root,
@@ -283,7 +283,7 @@ impl ConstraintSynthesizer<Fq> for ReclaimCircuit {
 		)?;
 
 		merkle_membership_circuit_proof(
-			&self.sender_1.asset.commitment,
+			&self.sender_1.asset.utxo,
 			&self.sender_1.membership,
 			param_var.clone(),
 			self.sender_1.root,
@@ -291,7 +291,7 @@ impl ConstraintSynthesizer<Fq> for ReclaimCircuit {
 		)?;
 
 		merkle_membership_circuit_proof(
-			&self.sender_2.asset.commitment,
+			&self.sender_2.asset.utxo,
 			&self.sender_2.membership,
 			param_var,
 			self.sender_2.root,

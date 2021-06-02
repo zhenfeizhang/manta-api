@@ -440,8 +440,8 @@ dependencies = [
  "hkdf",
  "manta-asset",
  "manta-crypto",
+ "manta-data",
  "manta-error",
- "manta-types",
  "rand_chacha",
  "sha2",
 ]
@@ -449,7 +449,7 @@ dependencies = [
 [[package]]
 name = "manta-asset"
 version = "0.1.0"
-source = "git+https://github.com/Manta-Network/manta-asset?branch=manta#da44f21e4c02acf4965fa49e3ba2854cdda3d420"
+source = "git+https://github.com/Manta-Network/manta-types?branch=manta#49262e1feb85909326f67d6663227b3588a8d217"
 dependencies = [
  "ark-crypto-primitives",
  "ark-ed-on-bls12-381",
@@ -483,21 +483,9 @@ dependencies = [
 ]
 
 [[package]]
-name = "manta-error"
+name = "manta-data"
 version = "0.1.0"
-source = "git+https://github.com/Manta-Network/manta-error?branch=manta#13fe1ace32ee4b4a3b037640c2d4689bbbdb6759"
-dependencies = [
- "ark-crypto-primitives",
- "ark-relations",
- "ark-serialize",
- "ark-std",
- "displaydoc",
-]
-
-[[package]]
-name = "manta-types"
-version = "0.1.0"
-source = "git+https://github.com/Manta-Network/manta-types?branch=manta#9b02f17e9ad45adfcb1f99798d095273e2f2682f"
+source = "git+https://github.com/Manta-Network/manta-types?branch=manta#49262e1feb85909326f67d6663227b3588a8d217"
 dependencies = [
  "ark-ed-on-bls12-381",
  "ark-groth16",
@@ -507,6 +495,18 @@ dependencies = [
  "manta-asset",
  "manta-crypto",
  "manta-error",
+]
+
+[[package]]
+name = "manta-error"
+version = "0.1.0"
+source = "git+https://github.com/Manta-Network/manta-error?branch=manta#13fe1ace32ee4b4a3b037640c2d4689bbbdb6759"
+dependencies = [
+ "ark-crypto-primitives",
+ "ark-relations",
+ "ark-serialize",
+ "ark-std",
+ "displaydoc",
 ]
 
 [[package]]
