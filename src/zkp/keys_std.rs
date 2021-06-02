@@ -25,12 +25,11 @@ use ark_std::rand::{RngCore, SeedableRng};
 use hkdf::Hkdf;
 use manta_asset::*;
 use manta_crypto::*;
+use manta_data::BuildMetadata;
 use manta_error::MantaError;
 use rand_chacha::ChaCha20Rng;
 use sha2::Sha512Trunc256;
 use std::{fs::File, io::prelude::*};
-use manta_types::BuildMetadata;
-
 
 /// Generate the ZKP keys with a default seed, and write to
 /// `transfer_pk.bin` and `reclaim_pk.bin`.
@@ -96,7 +95,7 @@ fn manta_transfer_zkp_key_gen(
 		rng.fill_bytes(&mut sk);
 
 		let sender = MantaAsset::sample(&commit_param, &sk, &TEST_ASSET, &(e + 100), &mut rng)?;
-		ledger.push(sender.commitment);
+		ledger.push(sender.utxo);
 		coins.push(sender);
 	}
 
@@ -104,18 +103,18 @@ fn manta_transfer_zkp_key_gen(
 	let sender_1 = coins[0].clone();
 	let sender_2 = coins[10].clone();
 
-    let sender_1 = sender_1.build(&hash_param, &ledger)?;
-    let sender_2 = sender_2.build(&hash_param, &ledger)?;
+	let sender_1 = sender_1.build(&hash_param, &ledger)?;
+	let sender_2 = sender_2.build(&hash_param, &ledger)?;
 
 	// receiver's total value is also 210
 	rng.fill_bytes(&mut sk);
 	let receiver_1_full =
 		MantaAssetFullReceiver::sample(&commit_param, &sk, &TEST_ASSET, &(), &mut rng)?;
-	let receiver_1 = receiver_1_full.prepared.process(&80, &mut rng)?;
+	let receiver_1 = receiver_1_full.shielded_address.process(&80, &mut rng)?;
 	rng.fill_bytes(&mut sk);
 	let receiver_2_full =
 		MantaAssetFullReceiver::sample(&commit_param, &sk, &TEST_ASSET, &(), &mut rng)?;
-	let receiver_2 = receiver_2_full.prepared.process(&130, &mut rng)?;
+	let receiver_2 = receiver_2_full.shielded_address.process(&130, &mut rng)?;
 
 	// transfer circuit
 	let transfer_circuit = TransferCircuit {
@@ -176,20 +175,20 @@ fn manta_reclaim_zkp_key_gen(
 		rng.fill_bytes(&mut sk);
 
 		let sender = MantaAsset::sample(&commit_param, &sk, &TEST_ASSET, &(e + 100), &mut rng)?;
-		ledger.push(sender.commitment);
+		ledger.push(sender.utxo);
 		coins.push(sender);
 	}
 	// sender's total value is 210
 	let sender_1 = coins[0].clone();
 	let sender_2 = coins[10].clone();
 
-    let sender_1 = sender_1.build(&hash_param, &ledger)?;
-    let sender_2 = sender_2.build(&hash_param, &ledger)?;
+	let sender_1 = sender_1.build(&hash_param, &ledger)?;
+	let sender_2 = sender_2.build(&hash_param, &ledger)?;
 
 	// receiver's total value is also 210
 	let receiver_full =
 		MantaAssetFullReceiver::sample(&commit_param, &sk, &TEST_ASSET, &(), &mut rng)?;
-	let receiver = receiver_full.prepared.process(&80, &mut rng)?;
+	let receiver = receiver_full.shielded_address.process(&80, &mut rng)?;
 
 	// transfer circuit
 	let reclaim_circuit = ReclaimCircuit {

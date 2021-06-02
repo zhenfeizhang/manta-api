@@ -20,8 +20,8 @@ use ark_serialize::CanonicalSerialize;
 use ark_std::rand::{CryptoRng, RngCore};
 use manta_asset::*;
 use manta_crypto::*;
-use manta_error::MantaError;
 use manta_data::*;
+use manta_error::MantaError;
 
 /// Given the inputs, generate the payload for the mint_asset extrinsic.
 pub fn generate_mint_payload(asset: &MantaAsset) -> Result<MintPayload, MantaError> {
@@ -116,8 +116,8 @@ fn generate_private_transfer_struct<R: RngCore + CryptoRng>(
 		sender_1: sender_1.clone(),
 		sender_2: sender_2.clone(),
 
-		receiver_1: receiver_1.clone(),
-		receiver_2: receiver_2.clone(),
+		receiver_1,
+		receiver_2,
 	};
 
 	// generate ZKP
@@ -241,7 +241,7 @@ fn generate_reclaim_struct<R: RngCore + CryptoRng>(
 		sender_1: sender_1.clone(),
 		sender_2: sender_2.clone(),
 
-		receiver: receiver.clone(),
+		receiver,
 
 		asset_id: sender_1.asset.asset_id,
 		reclaim_value,
