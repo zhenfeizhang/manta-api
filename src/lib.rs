@@ -23,7 +23,7 @@ mod zkp;
 pub use payload::{
 	generate_mint_payload, generate_private_transfer_payload, generate_reclaim_payload,
 };
-pub use zkp::{ReclaimCircuit, TransferCircuit, RECLAIM_PK, TRANSFER_PK};
+pub use zkp::{ReclaimCircuit, TransferCircuit};
 
 #[cfg(feature = "std")]
 pub use zkp::write_zkp_keys;

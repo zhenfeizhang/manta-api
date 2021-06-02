@@ -18,13 +18,11 @@
 
 mod circuit;
 mod gadget;
-mod keys;
 #[cfg(feature = "std")]
-mod keys_std;
+mod keys;
 
 pub use circuit::{ReclaimCircuit, TransferCircuit};
 pub(crate) use gadget::*;
 #[cfg(feature = "std")]
-pub use keys_std::write_zkp_keys;
+pub use keys::write_zkp_keys;
 
-pub use keys::{RECLAIM_PK, TRANSFER_PK};
